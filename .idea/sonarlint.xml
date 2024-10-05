@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SonarLintProjectSettings">
+    <option name="moduleMapping">
+      <map>
+        <entry key="batch-data" value="customer-data" />
+        <entry key="crpyto" value="product (1)" />
+        <entry key="email" value="product (1)" />
+        <entry key="encoding" value="product (1)" />
+        <entry key="openai" value="product (1)" />
+        <entry key="product" value="learn" />
+      </map>
+    </option>
+  </component>
+</project>

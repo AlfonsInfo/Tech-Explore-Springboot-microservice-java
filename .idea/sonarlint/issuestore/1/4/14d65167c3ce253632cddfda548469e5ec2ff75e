@@ -1,0 +1,10 @@
+
+¡	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.( €¢ıÿÿÿÿ8Ÿ¼ÙÂ¥2J$767e1fc2-e9e1-4bb7-b11a-dd99bdfe5472
+š	java:S116"SRename this field "KEY_SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ú†•øÿÿÿÿ8¡¼ÙÂ¥2J$3ed1b054-e7fa-4cef-b54f-c8ebc6a09662
+•	java:S116"SRename this field "T_LENGTH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËòÜˆ8¡¼ÙÂ¥2J$b410baad-ce93-4180-8e5c-da0dbb86adc5
+{
+java:S18548"8Remove this useless assignment to local variable "spec".(°Ş†š8¸¼ÙÂ¥2J$e2566303-398e-488e-8cb3-53f3f2deb1b2
+l
+java:S14818")Remove this unused "spec" local variable.(°Ş†š8½¼ÙÂ¥2J$b39fa661-f064-4f00-bfdd-be2dea4860cc
+o
+java:S1068"'Remove this unused "key" private field.( €¢ıÿÿÿÿ8Ë¼ÙÂ¥2J$19b0c6d4-9d74-4bc4-9828-f336c5c734f1
