@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/crypto-service/pom.xml" />
         <option value="$PROJECT_DIR$/encode-decode-service/pom.xml" />
         <option value="$PROJECT_DIR$/openai-service/pom.xml" />
+        <option value="$PROJECT_DIR$/cipher-service/pom.xml" />
       </list>
     </option>
   </component>

@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAdminServer
 @EnableAsync
-public class EmailServiceApplication {
+public class CipherServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmailServiceApplication.class, args);
+		SpringApplication.run(CipherServiceApplication.class, args);
 	}
 
 }
