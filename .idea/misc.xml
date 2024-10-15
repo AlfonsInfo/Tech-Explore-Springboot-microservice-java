@@ -12,6 +12,13 @@
         <option value="$PROJECT_DIR$/encode-decode-service/pom.xml" />
         <option value="$PROJECT_DIR$/openai-service/pom.xml" />
         <option value="$PROJECT_DIR$/cipher-service/pom.xml" />
+        <option value="$PROJECT_DIR$/utility-library/pom.xml" />
+        <option value="$PROJECT_DIR$/elastic-search-service/pom.xml" />
+        <option value="$PROJECT_DIR$/elastic-search-explore-service/pom.xml" />
+        <option value="$PROJECT_DIR$/redis-explore-service/pom.xml" />
+        <option value="$PROJECT_DIR$/stomp-explore-service/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/registry-service/pom.xml" />
       </list>
     </option>
   </component>
