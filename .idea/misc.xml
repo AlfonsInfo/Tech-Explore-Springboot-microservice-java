@@ -19,6 +19,8 @@
         <option value="$PROJECT_DIR$/stomp-explore-service/pom.xml" />
         <option value="$PROJECT_DIR$/gateway-service/pom.xml" />
         <option value="$PROJECT_DIR$/registry-service/pom.xml" />
+        <option value="$PROJECT_DIR$/company-structure-service/pom.xml" />
+        <option value="$PROJECT_DIR$/dvdrental-service/pom.xml" />
       </list>
     </option>
   </component>

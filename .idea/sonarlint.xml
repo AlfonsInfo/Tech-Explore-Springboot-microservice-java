@@ -5,6 +5,8 @@
       <map>
         <entry key="batch-data" value="customer-data" />
         <entry key="cipher" value="product (1)" />
+        <entry key="company-structure" value="product (1)" />
+        <entry key="dvdrentals" value="product (1)" />
         <entry key="elastic-search-explore" value="product (1)" />
         <entry key="email" value="product (1)" />
         <entry key="encoding" value="product (1)" />
