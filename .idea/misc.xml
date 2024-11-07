@@ -22,6 +22,7 @@
         <option value="$PROJECT_DIR$/company-structure-service/pom.xml" />
         <option value="$PROJECT_DIR$/dvdrental-service/pom.xml" />
         <option value="$PROJECT_DIR$/user-management-service/pom.xml" />
+        <option value="$PROJECT_DIR$/simple-media-social-service/pom.xml" />
       </list>
     </option>
   </component>
