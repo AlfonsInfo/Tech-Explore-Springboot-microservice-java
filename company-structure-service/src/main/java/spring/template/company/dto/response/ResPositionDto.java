@@ -10,4 +10,10 @@ public class ResPositionDto {
     private String name;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long departmentId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String departmentName;
+
+
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -19,4 +21,10 @@ public class DepartmentEntity {
     @Column(nullable = false)
     private String name;
     private String description;
+
+    //List Position
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    private List<PositionEntity> positions;
+
+
 }

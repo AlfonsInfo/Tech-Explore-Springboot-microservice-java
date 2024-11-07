@@ -18,7 +18,7 @@ public class FunctionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
     @Column(nullable = false)
     private String name;
     private String description;

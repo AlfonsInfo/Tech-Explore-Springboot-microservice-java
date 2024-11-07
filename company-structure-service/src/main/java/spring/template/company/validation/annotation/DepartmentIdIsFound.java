@@ -1,6 +1,8 @@
 package spring.template.company.validation.annotation;
 
 import jakarta.validation.Constraint;
+import spring.template.company.constant.MessageResponse;
+import spring.template.company.constant.MessageValidator;
 import spring.template.company.validation.validator.DepartmentIdIsFoundValidator;
 
 import java.lang.annotation.Documented;
@@ -14,9 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = DepartmentIdIsFoundValidator.class)
 @Target({ FIELD,  PARAMETER})
 public @interface DepartmentIdIsFound {
-    String message() default "Department Id is not found";
-
+    String message() default MessageValidator.DEPARTMENT_ID_NOT_FOUND;
     Class<?>[] groups() default {};
-
     Class<?>[] payload() default {};
 }

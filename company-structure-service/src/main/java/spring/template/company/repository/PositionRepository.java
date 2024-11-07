@@ -11,6 +11,8 @@ import java.util.List;
 public interface PositionRepository extends JpaRepository<PositionEntity, Long> {
         List<DepartmentSummary> findAllBy();
         boolean existsByName(String name);
+        boolean existByNameAndIdNot(String name, Long id);
+
         @Query("SELECT CASE WHEN COUNT(d) > 0 THEN false ELSE true END FROM PositionEntity d WHERE d.name = :name AND d.id <> :id")
         boolean isNameUniqueOrOwnedById(String name, Long id);
 }

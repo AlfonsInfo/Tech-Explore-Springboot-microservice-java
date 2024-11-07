@@ -10,6 +10,7 @@ import spring.template.company.dto.request.department.ReqCreateDepartmentDto;
 import spring.template.company.dto.request.department.ReqUpdateDepartmentDto;
 import spring.template.company.dto.response.ResDepartmentDto;
 import spring.template.company.dto.response.ResMessageDto;
+import spring.template.company.dto.response.ResPositionDto;
 import spring.template.company.service.DepartmentService;
 import spring.template.company.validation.annotation.DepartmentIdIsFound;
 
@@ -48,8 +49,21 @@ public class DepartmentController {
                     .build();
         }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResMessageDto<Void> deleteDepartment(
+            @PathVariable Long id
+    ) {
+        departmentService.deleteDepartment(id);
+        return ResMessageDto.<Void>builder()
+                .message(MessageResponse.DEPARTMENT_DELETED)
+                .statusCode(HttpStatus.NO_CONTENT.value())
+                .build();
+    }
 
-        @GetMapping
+
+
+    @GetMapping
         @ResponseStatus(HttpStatus.OK)
         public ResMessageDto<List<ResDepartmentDto>> getDepartments(
                 @RequestParam(value="detail", required = false, defaultValue = "false") Boolean detail
@@ -62,15 +76,29 @@ public class DepartmentController {
                     .build();
         }
 
-        @DeleteMapping("/{id}")
+        @GetMapping("/{id}")
         @ResponseStatus(HttpStatus.OK)
-        public ResMessageDto<Void> deleteDepartment(
-                @PathVariable Long id
+        public ResMessageDto<ResDepartmentDto> getDepartment(
+                @DepartmentIdIsFound @PathVariable Long id
         ) {
-            departmentService.deleteDepartment(id);
-            return ResMessageDto.<Void>builder()
-                    .message(MessageResponse.DEPARTMENT_DELETED)
-                    .statusCode(HttpStatus.NO_CONTENT.value())
+            ResDepartmentDto resp = departmentService.getDepartmentById(id);
+            return ResMessageDto.<ResDepartmentDto>builder()
+                    .message(MessageResponse.DEPARTMENT_READ)
+                    .data(resp)
+                    .statusCode(HttpStatus.CREATED.value())
+                    .build();
+        }
+
+        @GetMapping("/{id}/positions")
+        @ResponseStatus(HttpStatus.OK)
+        public ResMessageDto<List<ResPositionDto>> getDepartmentPositions(
+                @DepartmentIdIsFound @PathVariable Long id
+        ) {
+            List<ResPositionDto> resp = departmentService.getPositionsByDepartmentId(id);
+            return ResMessageDto.<List<ResPositionDto>>builder()
+                    .message(MessageResponse.POSITIONS_READ_BY_DEPARTMENT)
+                    .data(resp)
+                    .statusCode(HttpStatus.CREATED.value())
                     .build();
         }
 
