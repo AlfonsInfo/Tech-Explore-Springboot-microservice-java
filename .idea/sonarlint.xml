@@ -16,6 +16,7 @@
         <entry key="redis-explore" value="product (1)" />
         <entry key="registry" value="gateway (1)" />
         <entry key="stomp" value="product (1)" />
+        <entry key="user-management" value="product (1)" />
       </map>
     </option>
   </component>

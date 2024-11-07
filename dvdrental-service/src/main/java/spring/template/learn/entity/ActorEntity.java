@@ -21,4 +21,5 @@ public class ActorEntity {
     private Long actorId;
     private String firstName;
     private String lastName;
+
 }

@@ -18,7 +18,6 @@ public class BrandService {
 
     //mapper
     private final BrandMapper brandMapper;
-
     //repository
     private final BrandRepository brandRepository;
 

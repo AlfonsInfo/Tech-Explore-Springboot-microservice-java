@@ -17,11 +17,14 @@ import java.util.UUID;
 @Table(name = "position")
 public class PositionEntity {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private UUID id;
     @Column(nullable = false)
     private String name;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private DepartmentEntity department;
 }
