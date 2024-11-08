@@ -1,4 +1,4 @@
-package spring.template.mediasocial.constant;
+package spring.template.mediasocial.enums;
 // enum for post draft, published, deleted
 public enum PostEnum {
     DRAFT("draft"),

@@ -1,8 +1,8 @@
 package spring.template.mediasocial.validation.annotation;
 
 import jakarta.validation.Constraint;
-import spring.template.mediasocial.constant.MessageValidator;
-import spring.template.mediasocial.validation.validator.PositionIdIsFoundValidator;
+import jakarta.validation.Payload;
+import spring.template.mediasocial.validation.validator.ValidUUIDValidator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -14,10 +14,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = PositionIdIsFoundValidator.class)
+@Constraint(validatedBy = ValidUUIDValidator.class)
 @Target({ FIELD,  PARAMETER})
-public @interface PositionIdIsFound {
-    String message() default MessageValidator.POSITION_ID_NOT_FOUND;
-    Class<?>[] groups() default {};
-    Class<?>[] payload() default {};
+public @interface ValidUUID {
+    String message() default "Invalid UUID";
+
+    Class<?>[] groups() default { };
+
+    Class<? extends Payload>[] payload() default { };
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
-import spring.template.mediasocial.dto.response.ResMessageDto;
+import spring.template.mediasocial.dto.ResMessageDto;
 
 @Slf4j
 @RestControllerAdvice

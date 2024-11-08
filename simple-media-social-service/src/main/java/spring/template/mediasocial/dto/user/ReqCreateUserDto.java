@@ -3,11 +3,13 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CreateUserDto {
+public class ReqCreateUserDto {
     @NotBlank
-    private String username;
+    private String mobileNumberOrEmail;
     @NotBlank
     private String password;
     @NotBlank
-    private String email;
+    private String fullName;
+    @NotBlank
+    private String userName;
 }

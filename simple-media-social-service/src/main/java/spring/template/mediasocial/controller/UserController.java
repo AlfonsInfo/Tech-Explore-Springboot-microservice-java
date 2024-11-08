@@ -1,33 +1,48 @@
 package spring.template.mediasocial.controller;
 
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import spring.template.mediasocial.dto.response.ResMessageDto;
-import spring.template.mediasocial.dto.user.CreateUserDto;
-import spring.template.mediasocial.service.UserService;
+import spring.template.mediasocial.constant.HeaderConstant;
+import spring.template.mediasocial.dto.ResMessageDto;
+import spring.template.mediasocial.dto.user.ResTotalPosts;
+import spring.template.mediasocial.service.user.UserService;
+import spring.template.mediasocial.validation.annotation.ValidUUID;
 
 @RestController
 @RequestMapping("/v1/users")
-@RequiredArgsConstructor
 @Validated
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final HttpServletRequest request;
 
-    @PostMapping("/register")
-    public ResMessageDto<Void> registerUser(
-            @RequestBody @Valid CreateUserDto request
-    ) {
-        // create user
-        userService.registerUser(request);
-        return ResMessageDto.<Void>builder()
-                .message("User created")
-                .statusCode(201)
+
+    @GetMapping("/total-posts")
+    public ResMessageDto<ResTotalPosts> getTotalPosts() {
+        String loginIdUser = request.getHeader(HeaderConstant.ID_USER);
+        ResTotalPosts totalPost = userService.getUserTotalPosts(loginIdUser);
+        return ResMessageDto.<ResTotalPosts>builder()
+                .data(totalPost)
+                .statusCode(200)
                 .build();
     }
+
+    @GetMapping("/{userId}/total-posts")
+    public ResMessageDto<ResTotalPosts> getUserTotalPosts(
+            @ValidUUID @PathVariable("userId") String userId
+    ) {
+            ResTotalPosts totalPost =  userService.getUserTotalPosts(userId);
+            return ResMessageDto.<ResTotalPosts>builder()
+                    .data(totalPost)
+                    .statusCode(200)
+                    .build();
+    }
+
+
 }

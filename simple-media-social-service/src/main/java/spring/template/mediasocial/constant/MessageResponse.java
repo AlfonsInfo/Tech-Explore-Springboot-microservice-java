@@ -12,6 +12,7 @@ public class MessageResponse {
     public static final String POSITION_CREATED = "Position Created Successfully";
     public static final String FUNCTION_CREATED = "Function Created Successfully";
     public static final String USER_CREATED = "User Created Successfully";
+    public static final String POST_CREATED = "Post Created Successfully";
     //READ
     public static final String DEPARTMENT_READ = "Department Read Successfully";
     public static final String POSITIONS_READ_BY_DEPARTMENT = "Positions Read By Department Successfully";

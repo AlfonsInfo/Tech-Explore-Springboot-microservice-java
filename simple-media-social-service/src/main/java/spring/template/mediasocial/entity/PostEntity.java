@@ -2,7 +2,7 @@ package spring.template.mediasocial.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import spring.template.mediasocial.constant.PostEnum;
+import spring.template.mediasocial.enums.PostEnum;
 
 import java.util.UUID;
 
