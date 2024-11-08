@@ -6,12 +6,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import spring.template.mediasocial.constant.MessageResponse;
 import spring.template.mediasocial.dto.ResMessageDto;
-import spring.template.mediasocial.dto.hashtag.ReqCreateHashTag;
-import spring.template.mediasocial.dto.post.ReqCreatePost;
-import spring.template.mediasocial.repository.HashtagRepository;
+import spring.template.mediasocial.dto.post.ResPostDto;
 import spring.template.mediasocial.service.hashtag.HashTagService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/hash-tags")
@@ -24,12 +23,33 @@ public class HashTagController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResMessageDto<Void> createTag(
-            @RequestBody List<String> tags
+            @RequestBody Map<String,List<String>> tags
     ) {
-        hashTagService.create(tags);
+        hashTagService.create(tags.get("tags"));
         return ResMessageDto.<Void>builder()
-                .message(MessageResponse.DEPARTMENT_CREATED)
+                .message(MessageResponse.HASHTAG_CREATED)
                 .statusCode(HttpStatus.CREATED.value())
+                .build();
+    }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResMessageDto<List<String>> getTags() {
+        return ResMessageDto.<List<String>>builder()
+                .data(hashTagService.getTags())
+                .message(MessageResponse.HASHTAG_RETRIEVED)
+                .statusCode(HttpStatus.OK.value())
+                .build();
+    }
+
+    @GetMapping("/{tag}/posts")
+    @ResponseStatus(HttpStatus.OK)
+    public ResMessageDto<List<ResPostDto>> getPostsByTag(
+            @PathVariable String tag
+    ) {
+        return ResMessageDto.<List<ResPostDto>>builder()
+                .data(hashTagService.getPostsByTag(tag))
+                .message(MessageResponse.HASHTAG_RETRIEVED)
+                .statusCode(HttpStatus.OK.value())
                 .build();
     }
 

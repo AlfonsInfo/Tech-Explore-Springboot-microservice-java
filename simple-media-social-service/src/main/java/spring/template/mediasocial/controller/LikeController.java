@@ -6,23 +6,24 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import spring.template.mediasocial.constant.MessageResponse;
 import spring.template.mediasocial.dto.ResMessageDto;
+import spring.template.mediasocial.dto.like.ReqCreateLikeDto;
 import spring.template.mediasocial.dto.post.ReqCreatePost;
-import spring.template.mediasocial.service.post.PostService;
+import spring.template.mediasocial.service.like.LikeService;
 
 @RestController
-@RequestMapping("/v1/posts")
+@RequestMapping("/v1/likes")
 @Validated
 @RequiredArgsConstructor
-public class PostController {
+public class LikeController {
 
-    private final PostService postService;
+    private final LikeService likeService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResMessageDto<Void> createPost(
-            @RequestBody ReqCreatePost request
+            @RequestBody ReqCreateLikeDto request
     ) {
-        postService.createPost(request);
+        likeService.createLike(request);
         return ResMessageDto.<Void>builder()
                 .message(MessageResponse.POST_CREATED)
                 .statusCode(HttpStatus.CREATED.value())

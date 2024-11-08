@@ -23,5 +23,4 @@ public class LikeEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private PostEntity post;
-    private String content;
 }

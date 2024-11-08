@@ -5,6 +5,7 @@ import spring.template.mediasocial.entity.HashTagEntity;
 import spring.template.mediasocial.entity.PostHastagEntity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface HashtagRepository extends JpaRepository<HashTagEntity, UUID> {
@@ -13,4 +14,6 @@ public interface HashtagRepository extends JpaRepository<HashTagEntity, UUID> {
 
         //find all by tag in
         List<HashTagEntity> findAllByTagIn(List<String> tags);
+
+        Optional<HashTagEntity> findByTag(String tag);
 }
