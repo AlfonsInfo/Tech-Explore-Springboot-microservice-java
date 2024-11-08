@@ -20,12 +20,11 @@ public class PostEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
-    private String mediaType;
-    private String mediaUrl;
+    private String contentType;
+    private String content;
     @Column(nullable = false)
     private String caption;
     private String location;
-    private String tags;
     @Enumerated(EnumType.STRING)
     private PostEnum status;
 }
