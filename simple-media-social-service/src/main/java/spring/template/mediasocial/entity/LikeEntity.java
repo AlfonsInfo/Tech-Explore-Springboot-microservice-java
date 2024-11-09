@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@Table(name = "Like")
+@Table(name = "like_post")
 public class LikeEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.entity.HashTagEntity;
 import spring.template.mediasocial.entity.PostEntity;
-import spring.template.mediasocial.entity.PostHastagEntity;
+import spring.template.mediasocial.entity.PostHashtagEntity;
 import spring.template.mediasocial.repository.HashtagRepository;
 import spring.template.mediasocial.repository.PostHashtagRepository;
 import spring.template.mediasocial.service.hashtag.HashTagService;
@@ -25,10 +25,10 @@ public class PostHashtagService {
             hashTagService.create(postHashtags);
             List< HashTagEntity> hashTagEntityList = hashtagRepository.findAllByTagIn(postHashtags);
             hashTagEntityList.forEach(hashTagEntity -> {
-                PostHastagEntity postHastagEntity = new PostHastagEntity();
-                postHastagEntity.setPost(postEntity);
-                postHastagEntity.setHashTagEntity(hashTagEntity);
-                postHashtagRepository.save(postHastagEntity);
+                PostHashtagEntity postHashtagEntity = new PostHashtagEntity();
+                postHashtagEntity.setPost(postEntity);
+                postHashtagEntity.setHashTagEntity(hashTagEntity);
+                postHashtagRepository.save(postHashtagEntity);
             });
     }
 

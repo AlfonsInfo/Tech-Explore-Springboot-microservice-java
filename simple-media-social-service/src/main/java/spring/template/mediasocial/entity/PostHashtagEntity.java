@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @Table(name = "post_hashtag")
-public class PostHastagEntity extends BaseEntity {
+public class PostHashtagEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

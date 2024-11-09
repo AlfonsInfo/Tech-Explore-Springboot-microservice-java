@@ -2,7 +2,6 @@ package spring.template.mediasocial.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import spring.template.mediasocial.entity.HashTagEntity;
-import spring.template.mediasocial.entity.PostHastagEntity;
 
 import java.util.List;
 import java.util.Optional;
