@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>spring.template.learn</groupId>
-	<artifactId>product</artifactId>
+	<artifactId>stomp-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>learn</name>
+	<name>stomp-service</name>
 	<description>Spring Template Learn</description>
 	<url/>
 	<licenses>

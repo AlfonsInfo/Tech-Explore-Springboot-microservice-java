@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>spring.template.learn</groupId>
-	<artifactId>cipher</artifactId>
+	<artifactId>cipher-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cipher-service</name>
 	<description>Spring Template Learn</description>
