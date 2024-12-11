@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.dto.user.ReqCreateUserDto;
 import spring.template.mediasocial.entity.UserEntity;
-import spring.template.mediasocial.enums.SignupMethod;
+import spring.template.mediasocial.entity.UserSignupEntity;
 import spring.template.mediasocial.mapper.UserMapper;
-import spring.template.mediasocial.repository.UserRepository;
+import spring.template.mediasocial.repository.UserCredentialRepository;
 import spring.template.mediasocial.service.notification.NotificationService;
 
 @Service
 @Slf4j
+@Deprecated
 public class SignupCacheProcessingService
 implements SignupService{
 
     //Repository
-    private final UserRepository userRepository;
-
+    private final UserCredentialRepository userCredentialRepository;
     //Validation
     private final SignupValidationService signupValidationService;
     //(Notification)
@@ -29,7 +29,7 @@ implements SignupService{
     private final UserMapper userMapper;
 
     public SignupCacheProcessingService(
-            UserRepository userRepository,
+            UserCredentialRepository userCredentialRepository,
             SignupValidationService signupValidationService,
             @Qualifier("emailNotificationService")
             NotificationService emailNotificationService,
@@ -37,7 +37,7 @@ implements SignupService{
             NotificationService whatsappNotificationService,
             UserMapper userMapper
     ) {
-        this.userRepository = userRepository;
+        this.userCredentialRepository = userCredentialRepository;
         this.signupValidationService = signupValidationService;
         this.notificationService = emailNotificationService;
         this.whatsappNotificationService = whatsappNotificationService;
@@ -47,16 +47,16 @@ implements SignupService{
 
     @Transactional
     public void signUp(ReqCreateUserDto request){
-        //Get signup method
-        SignupMethod signupMethod = getSignupMethod(request.getMobileNumberOrEmail());
-        //Validation
-        validateEmailOrPhone(request, signupMethod);
-        //Map to entity
-        UserEntity userEntity = mapIntoUserEntity(request, signupMethod);
-        //send verification
-        sendVerification(request, signupMethod);
-        //Save to database
-        userRepository.save(userEntity);
+//        //Get signup method
+//        UserSignupEntity.SignupMethod signupMethod = getSignupMethod(request.getMobileNumberOrEmail());
+//        //Validation
+//        validateEmailOrPhone(request, signupMethod);
+//        //Map to entity
+//        UserCredentialEntity userEntity = mapIntoUserEntity(request, signupMethod);
+//        //send verification
+//        sendVerification(request, signupMethod);
+//        //Save to database
+//        userCredentialRepository.save(userEntity);
     }
 
     @Override
@@ -64,41 +64,41 @@ implements SignupService{
 
     }
 
-    private void sendVerification(ReqCreateUserDto request, SignupMethod signupMethod) {
-        if(signupMethod == SignupMethod.USING_EMAIL){
+    private void sendVerification(ReqCreateUserDto request, UserSignupEntity.SignupMethod signupMethod) {
+        if(signupMethod == UserSignupEntity.SignupMethod.USING_EMAIL){
             notificationService.sendConfirmationCode(request.getMobileNumberOrEmail());
         }else {
             whatsappNotificationService.sendConfirmationCode(request.getMobileNumberOrEmail());
         }
     }
 
-    private static UserEntity mapIntoUserEntity(ReqCreateUserDto request, SignupMethod signupMethod) {
+    private static UserEntity mapIntoUserEntity(ReqCreateUserDto request, UserSignupEntity.SignupMethod signupMethod) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setPassword(request.getPassword());
-        userEntity.setUsername(request.getFullName());
-        userEntity.setEmail(request.getUserName());
-        userEntity.setSignupMethod(signupMethod);
-        if(signupMethod == SignupMethod.USING_PHONE){
-            userEntity.setPhone(request.getMobileNumberOrEmail());
-        }else {
-            userEntity.setEmail(request.getMobileNumberOrEmail());
-        }
+//        userEntity.setPassword(request.getPassword());
+//        userEntity.setUsername(request.getFullName());
+//        userEntity.setEmail(request.getUserName());
+//        userEntity.setSignupMethod(signupMethod);
+//        if(signupMethod == SignupMethod.USING_PHONE){
+//            userEntity.setPhone(request.getMobileNumberOrEmail());
+//        }else {
+//            userEntity.setEmail(request.getMobileNumberOrEmail());
+//        }
         return userEntity;
     }
 
-    private void validateEmailOrPhone(ReqCreateUserDto request, SignupMethod signupMethod) {
-        if (signupMethod == SignupMethod.USING_EMAIL) {
+    private void validateEmailOrPhone(ReqCreateUserDto request, UserSignupEntity.SignupMethod signupMethod) {
+        if (signupMethod == UserSignupEntity.SignupMethod.USING_EMAIL) {
             signupValidationService.isEmailValid(request.getMobileNumberOrEmail());
         } else {
             signupValidationService.isPhoneValid(request.getMobileNumberOrEmail());
         }
     }
 
-    private SignupMethod getSignupMethod(String emailOrMethod) {
+    private UserSignupEntity.SignupMethod getSignupMethod(String emailOrMethod) {
         if (emailOrMethod.contains("@")) {
-            return SignupMethod.USING_EMAIL;
+            return UserSignupEntity.SignupMethod.USING_EMAIL;
         } else {
-            return SignupMethod.USING_PHONE;
+            return UserSignupEntity.SignupMethod.USING_PHONE;
         }
     }
 

@@ -15,6 +15,7 @@ import spring.template.mediasocial.service.signup.SignupService;
 @RestController
 @RequestMapping("/v1/signup")
 @Validated
+@Deprecated
 public class SignupV1Controller {
 
     private final SignupService signupService;
@@ -30,7 +31,7 @@ public class SignupV1Controller {
 
     @PostMapping("/input-data")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResMessageDto<Void> registerUser(
+    public ResMessageDto<Void> signupUser(
             @RequestBody @Valid ReqCreateUserDto request
     ) {
         // create user

@@ -17,6 +17,7 @@ import spring.template.mediasocial.service.signup.SignupService;
 @RestController
 @RequestMapping("/v2/signup")
 @Validated
+@Deprecated
 public class SignupV2Controller {
 
     private final SignupService signupService;
