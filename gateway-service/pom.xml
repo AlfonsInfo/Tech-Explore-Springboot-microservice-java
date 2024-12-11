@@ -28,6 +28,8 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+		<sonar.organization>alfonsinfo</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>
 	</properties>
 	<dependencyManagement>

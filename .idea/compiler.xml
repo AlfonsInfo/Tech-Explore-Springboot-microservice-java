@@ -14,9 +14,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.1.0/lombok-mapstruct-binding-0.1.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.4.2.Final/mapstruct-processor-1.4.2.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar" />
         </processorPath>
@@ -32,16 +29,14 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar" />
         </processorPath>
-        <module name="elasticsearch-learn" />
         <module name="product" />
         <module name="dvdrentals" />
         <module name="stomp" />
-        <module name="encoding" />
         <module name="redis-explore" />
         <module name="email" />
         <module name="company-structure" />
       </profile>
-      <profile name="Annotation profile for media-social" enabled="true">
+      <profile name="Annotation profile for user-management" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -55,10 +50,19 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.4.2.Final/mapstruct-1.4.2.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar" />
         </processorPath>
+        <module name="elasticsearch-learn" />
         <module name="cipher" />
-        <module name="openai" />
         <module name="media-social" />
         <module name="user-management" />
+        <module name="explore-redis" />
+        <module name="openai-service" />
+        <module name="encoding" />
+        <module name="product (2)" />
+        <module name="product (1)" />
+        <module name="openai" />
+        <module name="product (4)" />
+        <module name="product (3)" />
+        <module name="product (5)" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
@@ -77,10 +81,17 @@
       <module name="elasticsearch-learn" options="-parameters" />
       <module name="email" options="-parameters" />
       <module name="encoding" options="-parameters" />
+      <module name="explore-redis" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="media-social" options="-parameters" />
       <module name="openai" options="-parameters" />
+      <module name="openai-service" options="-parameters" />
       <module name="product" options="-parameters" />
+      <module name="product (1)" options="-parameters" />
+      <module name="product (2)" options="-parameters" />
+      <module name="product (3)" options="-parameters" />
+      <module name="product (4)" options="-parameters" />
+      <module name="product (5)" options="-parameters" />
       <module name="redis-explore" options="-parameters" />
       <module name="registry" options="-parameters" />
       <module name="stomp" options="-parameters" />
