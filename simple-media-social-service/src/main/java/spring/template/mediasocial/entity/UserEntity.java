@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @Table(name = "\"user\"")
-public class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
