@@ -27,8 +27,11 @@
 		<url/>
 	</scm>
 	<properties>
+		<sonar.organization>alfonsinfo</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
