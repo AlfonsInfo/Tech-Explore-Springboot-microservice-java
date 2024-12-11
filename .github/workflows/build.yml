@@ -34,7 +34,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Run Maven Build and Sonar Scan without Tests
         run: |
           cd simple-media-social-service
           mvn -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AlfonsInfo_Tech-Explore-Springboot-microservice-java -Dsonar.login=${{ secrets.SONAR_TOKEN }}
