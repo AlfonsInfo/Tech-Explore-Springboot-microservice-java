@@ -6,5 +6,6 @@ public interface SignupService {
 
         void signUp(ReqCreateUserDto request);
 
+        @Deprecated
         void confirm(String code);
 }

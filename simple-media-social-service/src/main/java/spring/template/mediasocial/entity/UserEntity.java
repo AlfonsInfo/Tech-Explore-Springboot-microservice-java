@@ -2,7 +2,6 @@ package spring.template.mediasocial.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import spring.template.mediasocial.enums.SignupMethod;
 
 import java.util.UUID;
 

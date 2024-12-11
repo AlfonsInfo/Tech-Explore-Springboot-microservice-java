@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ReqCreateLikeDto {
-    private String postId;
+    private Long postId;
 }

@@ -44,7 +44,7 @@ public class HashTagController {
     @GetMapping("/{tag}/posts")
     @ResponseStatus(HttpStatus.OK)
     public ResMessageDto<List<ResPostDto>> getPostsByTag(
-            @PathVariable String tag
+            @PathVariable Long tag
     ) {
         return ResMessageDto.<List<ResPostDto>>builder()
                 .data(hashTagService.getPostsByTag(tag))

@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class ResPostDto {
-    private UUID id;
+    private Long id;
     private String userId;
     private String userName;
     private String contentType;

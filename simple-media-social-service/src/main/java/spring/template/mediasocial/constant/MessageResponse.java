@@ -6,6 +6,7 @@ public class MessageResponse {
     //CREATE
     public static final String POST_CREATED = "Post Created Successfully";
     public static final String USER_CREATED = "User Created Successfully";
+    public static final String REGISTRATION_INIT_SUCCESSFULLY = "Registration Process Init Successfully";
     public static final String HASHTAG_CREATED = "Hashtag Created Successfully";
     //READ
     public static final String POST_RETRIEVED = "Post Retrieved Successfully";

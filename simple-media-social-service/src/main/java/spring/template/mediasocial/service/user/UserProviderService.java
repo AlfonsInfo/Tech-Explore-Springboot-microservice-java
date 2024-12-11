@@ -16,11 +16,8 @@ public class UserProviderService {
     private final HttpServletRequest request;
     private final UserRepository userRepository;
     public UserEntity getLoggedInUser(){
-        UUID idUserLogin = UUID.fromString(request.getHeader(HeaderConstant.ID_USER));
         return userRepository
-                .findById(idUserLogin)
-                .orElseThrow(
-                        () -> new RuntimeException("User not found")
-                );
+                .findById(Long.parseLong(request.getHeader(HeaderConstant.ID_USER)))
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

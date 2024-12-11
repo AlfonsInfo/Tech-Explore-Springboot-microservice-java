@@ -21,7 +21,7 @@ public class LikeService {
         private final UserProviderService userProviderService;
         public void createLike(ReqCreateLikeDto request){
             UserEntity loggedInUser = userProviderService.getLoggedInUser();
-            PostEntity postEntity = PostEntity.builder().id(UUID.fromString(request.getPostId())).build();
+            PostEntity postEntity = PostEntity.builder().id(request.getPostId()).build();
             //Validate if user has already liked the post
             if(likeRepository.existsByUser_IdAndPost_Id(loggedInUser.getId(), postEntity.getId())){
                 log.info("User has already liked the post");

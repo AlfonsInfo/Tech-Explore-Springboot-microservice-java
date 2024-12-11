@@ -41,10 +41,10 @@ public class HashTagService {
         return hashtagRepository.findAll().stream().map(HashTagEntity::getTag).toList();
     }
 
-    public List<ResPostDto> getPostsByTag(String tag) {
+    public List<ResPostDto> getPostsByTag(Long tag) {
         log.info("Get Posts by Tag");
         List<PostHashtagEntity> listPostHashtag = postHashtagRepository.findAllByHashTagEntity_IdAndPost_Status(
-                UUID.fromString(tag),
+                tag,
                 PostEnum.PUBLISHED
         );
         List<PostEntity> listPost = new ArrayList<>();
@@ -54,7 +54,7 @@ public class HashTagService {
             ResPostDto resPostDto = new ResPostDto();
             resPostDto.setId(postHashtag.getPost().getId());
             resPostDto.setUserId(postHashtag.getPost().getUser().getId().toString());
-            resPostDto.setUserName(postHashtag.getPost().getUser().getUsername());
+            resPostDto.setUserName(postHashtag.getPost().getUser().getName());
             resPostDto.setContent(postHashtag.getPost().getContent());
             resPostDto.setCaption(postHashtag.getPost().getCaption());
             resPostDto.setLocation(postHashtag.getPost().getLocation());
