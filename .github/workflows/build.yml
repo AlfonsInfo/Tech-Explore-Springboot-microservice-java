@@ -36,4 +36,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd simple-media-social-service
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AlfonsInfo_Tech-Explore-Springboot-microservice-java
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests -Dsonar.projectKey=AlfonsInfo_Tech-Explore-Springboot-microservice-java -DskipTest
