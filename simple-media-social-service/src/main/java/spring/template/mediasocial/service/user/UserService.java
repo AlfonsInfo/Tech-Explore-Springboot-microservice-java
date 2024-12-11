@@ -19,7 +19,7 @@ public class UserService {
     private final PostRepository postRepository;
 
     public ResTotalPosts getUserTotalPosts(String userId) {
-        int totalPosts = postRepository.countByUser_Id(UUID.fromString(userId));
+        int totalPosts = postRepository.countByUser_Id(Long.parseLong(userId));
         ResTotalPosts resTotalPosts = new ResTotalPosts();
         resTotalPosts.setTotalPosts(totalPosts);
         return resTotalPosts;

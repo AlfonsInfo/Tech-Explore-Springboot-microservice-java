@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface HashtagRepository extends JpaRepository<HashTagEntity, UUID> {
+public interface HashtagRepository extends JpaRepository<HashTagEntity, Long> {
         //exist
         boolean existsByTag(String tag);
 

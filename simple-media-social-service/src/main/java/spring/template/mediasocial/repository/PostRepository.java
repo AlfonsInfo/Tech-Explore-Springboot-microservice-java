@@ -6,6 +6,6 @@ import spring.template.mediasocial.entity.UserEntity;
 
 import java.util.UUID;
 
-public interface PostRepository extends JpaRepository<PostEntity, UUID> {
-    int countByUser_Id(UUID userId);
+public interface PostRepository extends JpaRepository<PostEntity, Long> {
+    int countByUser_Id(Long userId);
 }

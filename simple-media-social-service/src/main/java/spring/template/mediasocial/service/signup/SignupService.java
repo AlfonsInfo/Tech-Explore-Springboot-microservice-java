@@ -4,7 +4,7 @@ import spring.template.mediasocial.dto.user.ReqCreateUserDto;
 
 public interface SignupService {
 
-        public void signUp(ReqCreateUserDto request);
+        void signUp(ReqCreateUserDto request);
 
-        public void confirm(String code);
+        void confirm(String code);
 }

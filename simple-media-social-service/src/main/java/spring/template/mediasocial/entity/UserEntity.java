@@ -15,19 +15,12 @@ import java.util.UUID;
 @Table(name = "\"user\"")
 public class UserEntity extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String fullName;
-    @Column(nullable = false)
-    private String username;
-    @Column(nullable = false)
-    private String password;
-    @Column(nullable = false)
-    private String email;
-    private String phone;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
     private String bio;
     private String profilePicture;
 
     @Enumerated(EnumType.STRING)
-    private SignupMethod signupMethod;
+    private UserSignupEntity.SignupMethod signupMethod;
 }

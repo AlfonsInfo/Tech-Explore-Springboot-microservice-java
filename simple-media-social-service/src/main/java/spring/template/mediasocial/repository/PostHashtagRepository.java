@@ -7,6 +7,6 @@ import spring.template.mediasocial.enums.PostEnum;
 import java.util.List;
 import java.util.UUID;
 
-public interface PostHashtagRepository extends JpaRepository<PostHashtagEntity, UUID> {
-    List<PostHashtagEntity> findAllByHashTagEntity_IdAndPost_Status (UUID tag, PostEnum status);
+public interface PostHashtagRepository extends JpaRepository<PostHashtagEntity, Long> {
+    List<PostHashtagEntity> findAllByHashTagEntity_IdAndPost_Status (Long tag, PostEnum status);
 }

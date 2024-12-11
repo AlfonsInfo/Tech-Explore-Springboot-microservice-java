@@ -15,8 +15,8 @@ public class AesService {
 
     //Dynamic key generation
     private SecretKey secretKey;
-    private int KEY_SIZE = 128; // Possible Value 128, 192, 256
-    private int T_LENGTH = 128; // Possible Value 128, 120, 112, 104, 96
+    private final int KEY_SIZE = 128; // Possible Value 128, 192, 256
+    private final int T_LENGTH = 128; // Possible Value 128, 120, 112, 104, 96
 
     private Cipher cipher;
 
