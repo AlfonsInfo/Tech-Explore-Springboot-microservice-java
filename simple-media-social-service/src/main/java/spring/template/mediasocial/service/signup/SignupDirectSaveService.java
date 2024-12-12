@@ -60,9 +60,9 @@ public class SignupDirectSaveService implements SignupService {
 
     private void sendVerification(ReqCreateUserDto request, UserSignupEntity.SignupMethod signupMethod) {
         if(signupMethod == UserSignupEntity.SignupMethod.USING_EMAIL){
-            notificationService.sendConfirmationCode(request.getMobileNumberOrEmail());
+            notificationService.sendConfirmationCodeOld(request.getMobileNumberOrEmail());
         }else {
-            whatsappNotificationService.sendConfirmationCode(request.getMobileNumberOrEmail());
+            whatsappNotificationService.sendConfirmationCodeOld(request.getMobileNumberOrEmail());
         }
     }
 

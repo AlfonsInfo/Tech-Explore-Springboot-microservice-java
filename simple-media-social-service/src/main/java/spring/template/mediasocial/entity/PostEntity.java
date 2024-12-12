@@ -2,9 +2,8 @@ package spring.template.mediasocial.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import spring.template.mediasocial.entity.audit.BaseEntity;
 import spring.template.mediasocial.enums.PostEnum;
-
-import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity

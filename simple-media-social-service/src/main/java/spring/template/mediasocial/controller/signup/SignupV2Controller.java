@@ -38,6 +38,7 @@ public class SignupV2Controller {
     ) {
         // create user
         signupService.signUp(request);
+
         return ResMessageDto.<Void>builder()
                 .message(MessageResponse.USER_CREATED)
                 .statusCode(201)

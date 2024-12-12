@@ -2,6 +2,7 @@ package spring.template.mediasocial.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import spring.template.mediasocial.entity.audit.BaseEntity;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -10,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @Table(name = "user_signup")
-public class UserSignupEntity extends BaseEntity{
+public class UserSignupEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;

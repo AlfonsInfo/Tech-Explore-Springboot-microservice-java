@@ -3,6 +3,7 @@ package spring.template.mediasocial.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import spring.template.mediasocial.entity.audit.BaseEntity;
 
 
 @EqualsAndHashCode(callSuper = true)
