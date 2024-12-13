@@ -15,8 +15,6 @@ public class UserSignupEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    private SignupMethod signupMethod = SignupMethod.USING_PHONE;
-    private SignupState signupState = SignupState.INPUT_SIGNUP_IDENTIFIER;
     private String phoneNumber;
     private String email;
     private String name;
@@ -24,6 +22,10 @@ public class UserSignupEntity extends BaseEntity {
     private String password;
     private Boolean isConnectToFacebook;
 
+    @Enumerated(value = EnumType.STRING)
+    private SignupMethod signupMethod = SignupMethod.USING_PHONE;
+    @Enumerated(value = EnumType.STRING)
+    private SignupState signupState = SignupState.INPUT_SIGNUP_IDENTIFIER;
 
     public enum SignupState{
         INPUT_SIGNUP_IDENTIFIER,

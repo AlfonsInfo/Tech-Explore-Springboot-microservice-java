@@ -9,11 +9,12 @@ import spring.template.mediasocial.dto.signup.validate_verification_code_2.ReqVa
 import spring.template.mediasocial.entity.ConfirmationCodeEntity;
 import spring.template.mediasocial.repository.ConfirmationCodeRepository;
 import spring.template.mediasocial.validation.annotation.ConfirmationCodeValid;
+import spring.template.mediasocial.validation.interfaces.BaseValidator;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class ConfirmationCodeValidator implements ConstraintValidator<ConfirmationCodeValid, ReqValidateConfirmationCode> {
+public class ConfirmationCodeValidator extends BaseValidator implements ConstraintValidator<ConfirmationCodeValid, ReqValidateConfirmationCode> {
     private final ConfirmationCodeRepository confirmationCodeRepository;
 
 
@@ -21,7 +22,10 @@ public class ConfirmationCodeValidator implements ConstraintValidator<Confirmati
     public boolean isValid(ReqValidateConfirmationCode request, ConstraintValidatorContext context) {
         log.info("Start Validating ReqValidateConfirmationCode");
         // check credentialIdentifier & confirmationCode Exist
-        if(!confirmationCodeRepository.existsByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode())){ return false;}
+        if(!confirmationCodeRepository.existsByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode())){
+
+            return false;
+        }
         // check expired or not
         ConfirmationCodeEntity confirmationCode = confirmationCodeRepository.findByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode());
         if(System.currentTimeMillis() > confirmationCode.getExpirationMillis()) return false;

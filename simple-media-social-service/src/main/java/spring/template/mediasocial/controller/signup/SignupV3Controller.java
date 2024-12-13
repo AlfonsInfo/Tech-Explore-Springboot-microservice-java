@@ -52,7 +52,6 @@ public class SignupV3Controller {
     @PatchMapping("/confirmation-code")
     public ResMessageDto<ResSignupPatchDto> validateConfirmationCodeAndUpdateState(
             @RequestBody @ConfirmationCodeValid ReqValidateConfirmationCode request
-            //IsC
     ){
         return ResMessageDto.<ResSignupPatchDto>builder()
                 .data(signupService.validateConfirmationCodeAndUpdateState(request))
