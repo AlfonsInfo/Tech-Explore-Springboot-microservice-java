@@ -11,25 +11,40 @@ import spring.template.mediasocial.repository.ConfirmationCodeRepository;
 import spring.template.mediasocial.validation.annotation.ConfirmationCodeValid;
 import spring.template.mediasocial.validation.interfaces.BaseValidator;
 
+import java.time.Instant;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class ConfirmationCodeValidator extends BaseValidator implements ConstraintValidator<ConfirmationCodeValid, ReqValidateConfirmationCode> {
     private final ConfirmationCodeRepository confirmationCodeRepository;
 
+    private static final String NODE_CREDENTIAL_IDENTIFIER = "credentialIdentifier";
+    private static final String NODE_CONFIRMATION_CODE = "confirmationCode";
 
     @Override
     public boolean isValid(ReqValidateConfirmationCode request, ConstraintValidatorContext context) {
         log.info("Start Validating ReqValidateConfirmationCode");
         // check credentialIdentifier & confirmationCode Exist
-        if(!confirmationCodeRepository.existsByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode())){
-
-            return false;
-        }
+        if (isConfirmationCodeNotMatch(request, context)) return false;
         // check expired or not
         ConfirmationCodeEntity confirmationCode = confirmationCodeRepository.findByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode());
-        if(System.currentTimeMillis() > confirmationCode.getExpirationMillis()) return false;
-        // count fail attempt -> if 5 lock
-        return true;
+        return !isConfirmationCodeExpired(context, confirmationCode);
+    }
+
+    private boolean isConfirmationCodeNotMatch(ReqValidateConfirmationCode request, ConstraintValidatorContext context) {
+        if(!confirmationCodeRepository.existsByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode())){
+            buildMessage(context,NODE_CREDENTIAL_IDENTIFIER,"Confirmation code not match");
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isConfirmationCodeExpired(ConstraintValidatorContext context, ConfirmationCodeEntity confirmationCode) {
+        if(Instant.now().getEpochSecond() > confirmationCode.getExpirationMillis()) {
+            buildMessage(context, NODE_CONFIRMATION_CODE, "Confirmation Code is Expired"  );
+            return true;
+        }
+        return false;
     }
 }

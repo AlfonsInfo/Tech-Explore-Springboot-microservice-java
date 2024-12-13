@@ -24,17 +24,27 @@ public class InitSignupValidator extends BaseValidator implements ConstraintVali
     public boolean isValid(ReqInitSignup request, ConstraintValidatorContext context) {
         if(request.getCredentialIdentifier() == null) return true;
         // check availability
-        if(userCredentialService.isCredentialIdentifierNotAvailableForNewAccount(request.getCredentialIdentifier())) {
-            buildMessage(context,NODE_CREDENTIAL_IDENTIFIER,"Email or Phone not available for new account");
-            return false;
-        }
+        if (isNotAvailableCredential(request, context)) return false;
         // check blacklisted
-        if(userCredentialService.isCredentialIdentifierBlacklisted(request.getCredentialIdentifier())) {
-            buildMessage(context, NODE_CREDENTIAL_IDENTIFIER, "Email or Phone is blacklisted");
-            return false;
-        }
+        if (isBlacklisted(request, context)) return false;
         //format email/phone number
         return (regexUtil.isEmailValid(request.getCredentialIdentifier()) || regexUtil.isPhoneValid(request.getCredentialIdentifier()));
+    }
+
+    private boolean isNotAvailableCredential(ReqInitSignup request, ConstraintValidatorContext context) {
+        if(userCredentialService.isCredentialIdentifierNotAvailableForNewAccount(request.getCredentialIdentifier())) {
+            buildMessage(context,NODE_CREDENTIAL_IDENTIFIER,"Email or Phone not available for new account");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isBlacklisted(ReqInitSignup request, ConstraintValidatorContext context) {
+        if(userCredentialService.isCredentialIdentifierBlacklisted(request.getCredentialIdentifier())) {
+            buildMessage(context, NODE_CREDENTIAL_IDENTIFIER, "Email or Phone is blacklisted");
+            return true;
+        }
+        return false;
     }
 
 }

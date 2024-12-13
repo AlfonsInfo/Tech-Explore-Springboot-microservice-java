@@ -8,6 +8,7 @@ import spring.template.mediasocial.entity.ConfirmationCodeEntity;
 import spring.template.mediasocial.repository.ConfirmationCodeRepository;
 
 import java.security.SecureRandom;
+import java.time.Instant;
 
 @Service
 @Slf4j
@@ -25,13 +26,15 @@ public class ConfirmationCodeService {
 
 
     public String createVerificationCode(String emailOrPhone){
+        log.info("" +System.currentTimeMillis());
+        log.info("" + (System.currentTimeMillis() + codeExpirationTimeSec));
         //generate
         String verificationCode = generateNumericVerificationCode(codeLength);
         //map verification code entity
         ConfirmationCodeEntity confirmationCodeEntity = new ConfirmationCodeEntity();
         confirmationCodeEntity.setCode(verificationCode);
         confirmationCodeEntity.setCredentialIdentifier(emailOrPhone);
-        confirmationCodeEntity.setExpirationMillis(System.currentTimeMillis() + codeExpirationTimeSec);
+        confirmationCodeEntity.setExpirationMillis(Instant.now().getEpochSecond() + 300L);
         //save
         verificationCodeRepository.save(confirmationCodeEntity);
         return verificationCode;
