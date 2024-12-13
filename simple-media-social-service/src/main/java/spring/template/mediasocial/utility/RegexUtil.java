@@ -1,9 +1,9 @@
-package spring.template.mediasocial.service.signup;
+package spring.template.mediasocial.utility;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class SignupValidationService {
+@Component
+public class RegexUtil {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
     private static final String PHONE_REGEX = "^(\\+62|0)[0-9]{9,12}$";
 

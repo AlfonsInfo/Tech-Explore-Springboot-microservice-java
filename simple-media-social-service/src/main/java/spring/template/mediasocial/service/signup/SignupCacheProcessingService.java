@@ -10,6 +10,7 @@ import spring.template.mediasocial.entity.UserSignupEntity;
 import spring.template.mediasocial.mapper.UserMapper;
 import spring.template.mediasocial.repository.UserCredentialRepository;
 import spring.template.mediasocial.service.notification.NotificationService;
+import spring.template.mediasocial.utility.RegexUtil;
 
 @Service
 @Slf4j
@@ -20,7 +21,7 @@ implements SignupService{
     //Repository
     private final UserCredentialRepository userCredentialRepository;
     //Validation
-    private final SignupValidationService signupValidationService;
+    private final RegexUtil signupValidationService;
     //(Notification)
     private final NotificationService notificationService;
 
@@ -30,7 +31,7 @@ implements SignupService{
 
     public SignupCacheProcessingService(
             UserCredentialRepository userCredentialRepository,
-            SignupValidationService signupValidationService,
+            RegexUtil signupValidationService,
             @Qualifier("emailNotificationService")
             NotificationService emailNotificationService,
             @Qualifier("whatsappNotificationService")

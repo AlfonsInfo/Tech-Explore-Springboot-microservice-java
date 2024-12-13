@@ -20,6 +20,7 @@ public class UserSignupEntity extends BaseEntity {
     private String phoneNumber;
     private String email;
     private String name;
+    private String username;
     private String password;
     private Boolean isConnectToFacebook;
 
@@ -30,9 +31,15 @@ public class UserSignupEntity extends BaseEntity {
         SEND_VERIFICATION_CODE_SUCCESS,
         SEND_VERIFICATION_CODE_FAILED,
         VERIFICATION_CODE_CONFIRMED,
-        INPUT_FULL_NAME,
-        INPUT_PASSWORD,
-        INPUT_USERNAME
+        INPUT_FULL_NAME_SUCCESS,
+        INPUT_DATE_OF_BIRTH_SUCCESS,
+        INPUT_PASSWORD_SUCCESS,
+        INPUT_USERNAME_SUCCESS,
+        CONNECT_TO_FACEBOOK, // CTF
+        // Flow Connect to facebook
+
+        // Signup Completed without facebook flow
+        SIGNUP_COMPLETED_WITHOUT_FACEBOOK
     }
 
 

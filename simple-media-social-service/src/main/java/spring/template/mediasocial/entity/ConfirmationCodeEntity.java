@@ -9,19 +9,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Entity
 @Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-@Table(name = "verification_code")
-public class VerificationCodeEntity {
+@Table(name = "confirmation_code")
+public class ConfirmationCodeEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    private String emailOrPhone;
+    private String credentialIdentifier;
     private String code;
-    private Timestamp validUntil;
+    private Long expirationMillis;
 }

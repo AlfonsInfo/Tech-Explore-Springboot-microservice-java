@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ResInitSignup {
-    private Long registrationId;
+public class ResSignupPatchDto {
+    private Long signupId;
 }

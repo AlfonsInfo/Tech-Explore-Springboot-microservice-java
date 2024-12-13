@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.entity.UserSignupEntity;
 import spring.template.mediasocial.repository.UserSignupRepository;
+import spring.template.mediasocial.service.verification_code.ConfirmationCodeService;
 
 @Service
 @Slf4j
@@ -12,6 +13,8 @@ import spring.template.mediasocial.repository.UserSignupRepository;
 public class EmailNotificationService implements NotificationService {
 
     private final UserSignupRepository userSignupRepository;
+
+    private final ConfirmationCodeService verificationCodeService;
 
     @Deprecated
     public void sendConfirmationCodeOld(String to) {
@@ -24,6 +27,8 @@ public class EmailNotificationService implements NotificationService {
         userSignupRepository.save(userSignupEntity);
         try{
             //send verification
+            String verificationCode  = verificationCodeService.createVerificationCode(to);
+            log.info("Verification Code : {} send to : {}", verificationCode, to);
             userSignupEntity.setSignupState(UserSignupEntity.SignupState.SEND_VERIFICATION_CODE_SUCCESS);
             userSignupRepository.save(userSignupEntity);
         }catch (Exception e){
