@@ -27,6 +27,8 @@ public class ConfirmationCodeValidator extends BaseValidator implements Constrai
         log.info("Start Validating ReqValidateConfirmationCode");
         // check credentialIdentifier & confirmationCode Exist
         if (isConfirmationCodeNotMatch(request, context)) return false;
+        // TODO : Tambahin Column menandakan credential udah dipake
+        // check credential already use or not
         // check expired or not
         ConfirmationCodeEntity confirmationCode = confirmationCodeRepository.findByCredentialIdentifierAndCode(request.getCredentialIdentifier(), request.getConfirmationCode());
         return !isConfirmationCodeExpired(context, confirmationCode);

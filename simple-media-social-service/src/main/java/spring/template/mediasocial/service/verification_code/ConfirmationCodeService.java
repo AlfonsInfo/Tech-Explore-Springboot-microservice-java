@@ -19,27 +19,23 @@ public class ConfirmationCodeService {
     private Integer codeLength;
 
     @Value("${service.media-social.verification-code.expiration-second}")
-    private Integer codeExpirationTimeSec;
+    private Long codeExpirationTimeSec;
 
-    private final ConfirmationCodeRepository verificationCodeRepository;
-
-
+    private final ConfirmationCodeRepository confirmationCodeRepository;
 
     public String createVerificationCode(String emailOrPhone){
-        log.info("" +System.currentTimeMillis());
-        log.info("" + (System.currentTimeMillis() + codeExpirationTimeSec));
         //generate
         String verificationCode = generateNumericVerificationCode(codeLength);
-        //map verification code entity
-        ConfirmationCodeEntity confirmationCodeEntity = new ConfirmationCodeEntity();
+        // get or new
+        ConfirmationCodeEntity confirmationCodeEntity = confirmationCodeRepository.findByCredentialIdentifier(emailOrPhone).orElse(new ConfirmationCodeEntity());
+        // map value
         confirmationCodeEntity.setCode(verificationCode);
         confirmationCodeEntity.setCredentialIdentifier(emailOrPhone);
-        confirmationCodeEntity.setExpirationMillis(Instant.now().getEpochSecond() + 300L);
+        confirmationCodeEntity.setExpirationMillis(Instant.now().getEpochSecond() + codeExpirationTimeSec);
         //save
-        verificationCodeRepository.save(confirmationCodeEntity);
+        confirmationCodeRepository.save(confirmationCodeEntity);
         return verificationCode;
     }
-
 
     private String generateNumericVerificationCode(int length) {
         if (length <= 0) throw new IllegalArgumentException("Length must be greater than 0. Provided length: " + length);

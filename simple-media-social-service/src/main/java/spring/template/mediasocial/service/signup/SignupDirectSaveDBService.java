@@ -106,9 +106,11 @@ public class SignupDirectSaveDBService{
      * @throws EntityNotFoundException if no user is found with the given identifier.
      */
     public ResSignupPatchDto validateConfirmationCodeAndUpdateState(ReqValidateConfirmationCode request){
+        // update state
         UserSignupEntity userSignupEntity = userSignupRepository.findByCredentialIdentifier(request.getCredentialIdentifier()).orElseThrow(() -> new EntityNotFoundException("Identifier Not Found"));
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.VERIFICATION_CODE_CONFIRMED);
         userSignupRepository.save(userSignupEntity);
+        // TODO delete confirmation code ?
         return buildResponse(userSignupEntity);
     }
 
