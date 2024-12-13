@@ -7,10 +7,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import spring.template.mediasocial.constant.MessageResponse;
 import spring.template.mediasocial.dto.ResMessageDto;
+import spring.template.mediasocial.dto.signup.ReqSignupPatchDto;
 import spring.template.mediasocial.dto.signup.init_1.ReqInitSignup;
 import spring.template.mediasocial.dto.signup.init_1.ResInitSignup;
 import spring.template.mediasocial.dto.signup.validate_verification_code_2.ReqValidateConfirmationCode;
-import spring.template.mediasocial.dto.signup.validate_verification_code_2.ResValidateConfirmationCode;
+import spring.template.mediasocial.dto.signup.ResSignupPatchDto;
 import spring.template.mediasocial.service.signup.SignupDirectSaveDBService;
 import spring.template.mediasocial.validation.annotation.ConfirmationCodeValid;
 import spring.template.mediasocial.validation.annotation.InitSignupIsValid;
@@ -49,12 +50,22 @@ public class SignupV3Controller {
      * 2. update state
      */
     @PatchMapping("/confirmation-code")
-    public ResMessageDto<ResValidateConfirmationCode> validateConfirmationCodeAndUpdateState(
+    public ResMessageDto<ResSignupPatchDto> validateConfirmationCodeAndUpdateState(
             @RequestBody @ConfirmationCodeValid ReqValidateConfirmationCode request
             //IsC
     ){
-        return ResMessageDto.<ResValidateConfirmationCode>builder()
+        return ResMessageDto.<ResSignupPatchDto>builder()
                 .data(signupService.validateConfirmationCodeAndUpdateState(request))
+                .build();
+    }
+
+    @PatchMapping("/personal-data")
+    public ResMessageDto<ResSignupPatchDto> validatePersonalDataAndUpdateState(
+            @RequestBody ReqSignupPatchDto request
+    ){
+        return ResMessageDto
+                .<ResSignupPatchDto>builder()
+                .data(signupService.validatePersonalDataAndUpdateState(request))
                 .build();
     }
 }
