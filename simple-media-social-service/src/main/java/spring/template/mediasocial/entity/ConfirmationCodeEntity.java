@@ -19,7 +19,7 @@ public class ConfirmationCodeEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    private String emailOrPhone;
+    private String credentialIdentifier;
     private String code;
-    private Long expirationInteger;
+    private Long expirationMillis;
 }

@@ -5,14 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.entity.ConfirmationCodeEntity;
-import spring.template.mediasocial.repository.VerificationCodeRepository;
+import spring.template.mediasocial.repository.ConfirmationCodeRepository;
 
 import java.security.SecureRandom;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class VerificationCodeService {
+public class ConfirmationCodeService {
 
     @Value("${service.media-social.verification-code.length}")
     private Integer codeLength;
@@ -20,7 +20,7 @@ public class VerificationCodeService {
     @Value("${service.media-social.verification-code.expiration-second}")
     private Integer codeExpirationTimeSec;
 
-    private final VerificationCodeRepository verificationCodeRepository;
+    private final ConfirmationCodeRepository verificationCodeRepository;
 
 
 
@@ -30,8 +30,8 @@ public class VerificationCodeService {
         //map verification code entity
         ConfirmationCodeEntity confirmationCodeEntity = new ConfirmationCodeEntity();
         confirmationCodeEntity.setCode(verificationCode);
-        confirmationCodeEntity.setEmailOrPhone(emailOrPhone);
-        confirmationCodeEntity.setExpirationInteger(System.currentTimeMillis() + codeExpirationTimeSec);
+        confirmationCodeEntity.setCredentialIdentifier(emailOrPhone);
+        confirmationCodeEntity.setExpirationMillis(System.currentTimeMillis() + codeExpirationTimeSec);
         //save
         verificationCodeRepository.save(confirmationCodeEntity);
         return verificationCode;
@@ -39,7 +39,7 @@ public class VerificationCodeService {
 
 
     private String generateNumericVerificationCode(int length) {
-        if (length <= 0) throw new IllegalArgumentException("Length must be greater than 0");
+        if (length <= 0) throw new IllegalArgumentException("Length must be greater than 0. Provided length: " + length);
         SecureRandom random = new SecureRandom();
         StringBuilder code = new StringBuilder(length);
         for (int i = 0; i < length; i++) {code.append(random.nextInt(10));}

@@ -10,6 +10,7 @@ import spring.template.mediasocial.entity.UserSignupEntity;
 import spring.template.mediasocial.mapper.UserMapper;
 import spring.template.mediasocial.repository.UserRepository;
 import spring.template.mediasocial.service.notification.NotificationService;
+import spring.template.mediasocial.utility.RegexUtil;
 
 @Service
 @Slf4j
@@ -18,7 +19,7 @@ public class SignupDirectSaveService implements SignupService {
     //Repository
     private final UserRepository userRepository;
     //Validation
-    private final SignupValidationService signupValidationService;
+    private final RegexUtil signupValidationService;
     //(Notification)
     private final NotificationService notificationService;
     private final NotificationService whatsappNotificationService;
@@ -27,7 +28,7 @@ public class SignupDirectSaveService implements SignupService {
 
     public SignupDirectSaveService(
             UserRepository userRepository,
-            SignupValidationService signupValidationService,
+            RegexUtil signupValidationService,
             @Qualifier("emailNotificationService") NotificationService emailNotificationService,
             @Qualifier("whatsappNotificationService") NotificationService whatsappNotificationService,
             UserMapper userMapper

@@ -7,10 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import spring.template.mediasocial.constant.MessageResponse;
 import spring.template.mediasocial.dto.ResMessageDto;
-import spring.template.mediasocial.dto.signup.ReqInitSignup;
-import spring.template.mediasocial.dto.signup.ResInitSignup;
-import spring.template.mediasocial.service.notification.NotificationService;
+import spring.template.mediasocial.dto.signup.init_1.ReqInitSignup;
+import spring.template.mediasocial.dto.signup.init_1.ResInitSignup;
+import spring.template.mediasocial.dto.signup.validate_verification_code_2.ReqValidateConfirmationCode;
+import spring.template.mediasocial.dto.signup.validate_verification_code_2.ResValidateConfirmationCode;
 import spring.template.mediasocial.service.signup.SignupDirectSaveDBService;
+import spring.template.mediasocial.validation.annotation.ConfirmationCodeValid;
+import spring.template.mediasocial.validation.annotation.InitSignupIsValid;
 
 @RestController
 @RequestMapping("/v3/signup")
@@ -29,11 +32,29 @@ public class SignupV3Controller {
 
     @PostMapping("/init")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResMessageDto<ResInitSignup> initSignup(@RequestBody @Valid ReqInitSignup request) {
+    public ResMessageDto<ResInitSignup> initSignup(@RequestBody @Valid @InitSignupIsValid ReqInitSignup request) {
         return ResMessageDto.<ResInitSignup>builder()
                 .data(signupService.initSignup(request))
-                .message(MessageResponse.REGISTRATION_INIT_SUCCESSFULLY)
+                .message(MessageResponse.SIGNUP_INIT_SUCCESSFULLY)
                 .statusCode(201)
+                .build();
+    }
+
+    /**
+     *
+     * @param request (confirmation code) and credentialIdentifier
+     * @return
+     * step :
+     * 1. validate confirmation code using bean validation
+     * 2. update state
+     */
+    @PatchMapping("/confirmation-code")
+    public ResMessageDto<ResValidateConfirmationCode> validateConfirmationCodeAndUpdateState(
+            @RequestBody @ConfirmationCodeValid ReqValidateConfirmationCode request
+            //IsC
+    ){
+        return ResMessageDto.<ResValidateConfirmationCode>builder()
+                .data(signupService.validateConfirmationCodeAndUpdateState(request))
                 .build();
     }
 }

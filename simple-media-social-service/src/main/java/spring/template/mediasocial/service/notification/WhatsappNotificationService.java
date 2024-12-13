@@ -5,14 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.entity.UserSignupEntity;
 import spring.template.mediasocial.repository.UserSignupRepository;
-import spring.template.mediasocial.service.verification_code.VerificationCodeService;
+import spring.template.mediasocial.service.verification_code.ConfirmationCodeService;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class WhatsappNotificationService  implements NotificationService {
     private final UserSignupRepository userSignupRepository;
-    private final VerificationCodeService verificationCodeService;
+    private final ConfirmationCodeService verificationCodeService;
 
     @Deprecated
     public void sendConfirmationCodeOld(String to) {
