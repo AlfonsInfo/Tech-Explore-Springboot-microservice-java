@@ -122,14 +122,15 @@ public class SignupDirectSaveDBService{
      */
     public ResSignupPatchDto validatePersonalDataAndUpdateState(ReqSignupPatchDto request){
         UserSignupEntity userSignupEntity = userSignupRepository.findById(request.getSignupId()).orElseThrow(() -> new EntityNotFoundException("Signup Entity not found"));
-        return this.signupStateFunctionMap.get(request.getSignupState()).apply(request, userSignupEntity);
+        ResSignupPatchDto response = this.signupStateFunctionMap.get(request.getSignupState()).apply(request, userSignupEntity);
+        userSignupRepository.save(userSignupEntity);
+        return response;
     }
 
     //* Step 3
     public ResSignupPatchDto updateName(ReqSignupPatchDto request, UserSignupEntity userSignupEntity){
         userSignupEntity.setName(request.getName());
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.INPUT_FULL_NAME_SUCCESS);
-        userSignupRepository.save(userSignupEntity);
         return buildResponse(userSignupEntity);
     }
 
@@ -151,7 +152,6 @@ public class SignupDirectSaveDBService{
     public ResSignupPatchDto updateUsername(ReqSignupPatchDto request, UserSignupEntity userSignupEntity){
         userSignupEntity.setUsername(request.getUsername());
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.INPUT_USERNAME_SUCCESS);
-
         return buildResponse(userSignupEntity);
     }
 
@@ -167,6 +167,7 @@ public class SignupDirectSaveDBService{
         return ResSignupPatchDto
                 .builder()
                 .signupId(userSignupEntity.getId())
+                .signupState(userSignupEntity.getSignupState())
                 .build();
     }
 

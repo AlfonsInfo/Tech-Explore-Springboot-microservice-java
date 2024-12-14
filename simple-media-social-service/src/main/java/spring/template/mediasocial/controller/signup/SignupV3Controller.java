@@ -66,6 +66,7 @@ public class SignupV3Controller {
         return ResMessageDto
                 .<ResSignupPatchDto>builder()
                 .data(signupService.validatePersonalDataAndUpdateState(request))
+                .statusCode(200)
                 .build();
     }
 }
