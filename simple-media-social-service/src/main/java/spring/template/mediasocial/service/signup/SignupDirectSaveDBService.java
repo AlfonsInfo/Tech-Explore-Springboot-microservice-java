@@ -64,7 +64,7 @@ public class SignupDirectSaveDBService{
             @Qualifier("whatsappNotificationService")
             NotificationService whatsappNotificationService,
             PasswordEncoder passwordEncoder
-    ) {
+           ) {
         this.userSignupRepository = userSignupRepository;
         this.emailNotificationService = emailNotificationService;
         this.whatsappNotificationService = whatsappNotificationService;
@@ -176,5 +176,4 @@ public class SignupDirectSaveDBService{
                 .signupState(userSignupEntity.getSignupState())
                 .build();
     }
-
 }
