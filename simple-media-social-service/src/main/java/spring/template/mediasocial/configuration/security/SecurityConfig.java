@@ -22,11 +22,15 @@ import spring.template.mediasocial.service.user.UserProviderService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Autowired
-    private UserProviderService userProviderService;
+    private final UserProviderService userProviderService;
+
+    private final JwtService jwtService;
 
     @Autowired
-    private JwtService jwtService;
+    public SecurityConfig(UserProviderService userProviderService, JwtService jwtService) {
+        this.userProviderService = userProviderService;
+        this.jwtService = jwtService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -48,10 +52,18 @@ public class SecurityConfig {
                     .authorizeHttpRequests(
                             authorizationManagerRequestMatcherRegistry ->
                                     authorizationManagerRequestMatcherRegistry
-                                            .requestMatchers("/v3/signups/**").permitAll()
-                                            .requestMatchers("/swagger-ui/**").permitAll()
-                                            .requestMatchers("/v3/api-docs/**").permitAll()
-                                            .anyRequest().authenticated()
+                                            .requestMatchers(
+                                                    "/v1/admin-credential/**",
+                                                    "/v3/signups/**",
+                                                    "/swagger-ui/**",
+                                                    "/v3/api-docs/**",
+                                                    "/v1/jwt/example/**",
+                                                    "/actuator",
+                                                    "/actuator/**"
+                                            )
+                                            .permitAll()
+                                            .anyRequest()
+                                            .authenticated()
                     )
 
                     // SESSION MANAGEMENT
