@@ -17,7 +17,7 @@ import spring.template.mediasocial.validation.annotation.ConfirmationCodeValid;
 import spring.template.mediasocial.validation.annotation.InitSignupIsValid;
 
 @RestController
-@RequestMapping("/v3/signup")
+@RequestMapping("/v3/signups")
 @Validated
 public class SignupV3Controller {
 
@@ -31,7 +31,7 @@ public class SignupV3Controller {
     }
 
 
-    @PostMapping("/init")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResMessageDto<ResInitSignup> initSignup(@RequestBody @Valid @InitSignupIsValid ReqInitSignup request) {
         return ResMessageDto.<ResInitSignup>builder()
@@ -52,20 +52,21 @@ public class SignupV3Controller {
     @PatchMapping("/confirmation-code")
     public ResMessageDto<ResSignupPatchDto> validateConfirmationCodeAndUpdateState(
             @RequestBody @ConfirmationCodeValid ReqValidateConfirmationCode request
-            //IsC
     ){
         return ResMessageDto.<ResSignupPatchDto>builder()
                 .data(signupService.validateConfirmationCodeAndUpdateState(request))
+                .statusCode(200)
                 .build();
     }
 
-    @PatchMapping("/personal-data")
+    @PatchMapping("/personals")
     public ResMessageDto<ResSignupPatchDto> validatePersonalDataAndUpdateState(
             @RequestBody ReqSignupPatchDto request
     ){
         return ResMessageDto
                 .<ResSignupPatchDto>builder()
                 .data(signupService.validatePersonalDataAndUpdateState(request))
+                .statusCode(200)
                 .build();
     }
 }

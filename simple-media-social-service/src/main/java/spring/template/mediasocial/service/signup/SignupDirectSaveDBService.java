@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.dto.signup.ReqSignupPatchDto;
 import spring.template.mediasocial.dto.signup.init_1.ReqInitSignup;
@@ -28,6 +29,8 @@ public class SignupDirectSaveDBService{
     // service
     private final NotificationService emailNotificationService;
     private final NotificationService whatsappNotificationService;
+
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Maps each signup state to its processing function, which takes a
@@ -59,10 +62,13 @@ public class SignupDirectSaveDBService{
             @Qualifier("emailNotificationService")
             NotificationService emailNotificationService,
             @Qualifier("whatsappNotificationService")
-            NotificationService whatsappNotificationService) {
+            NotificationService whatsappNotificationService,
+            PasswordEncoder passwordEncoder
+    ) {
         this.userSignupRepository = userSignupRepository;
         this.emailNotificationService = emailNotificationService;
         this.whatsappNotificationService = whatsappNotificationService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -106,9 +112,11 @@ public class SignupDirectSaveDBService{
      * @throws EntityNotFoundException if no user is found with the given identifier.
      */
     public ResSignupPatchDto validateConfirmationCodeAndUpdateState(ReqValidateConfirmationCode request){
+        // update state
         UserSignupEntity userSignupEntity = userSignupRepository.findByCredentialIdentifier(request.getCredentialIdentifier()).orElseThrow(() -> new EntityNotFoundException("Identifier Not Found"));
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.VERIFICATION_CODE_CONFIRMED);
         userSignupRepository.save(userSignupEntity);
+        // TODO delete confirmation code ?
         return buildResponse(userSignupEntity);
     }
 
@@ -120,20 +128,21 @@ public class SignupDirectSaveDBService{
      */
     public ResSignupPatchDto validatePersonalDataAndUpdateState(ReqSignupPatchDto request){
         UserSignupEntity userSignupEntity = userSignupRepository.findById(request.getSignupId()).orElseThrow(() -> new EntityNotFoundException("Signup Entity not found"));
-        return this.signupStateFunctionMap.get(request.getSignupState()).apply(request, userSignupEntity);
+        ResSignupPatchDto response = this.signupStateFunctionMap.get(request.getSignupState()).apply(request, userSignupEntity);
+        userSignupRepository.save(userSignupEntity);
+        return response;
     }
 
     //* Step 3
     public ResSignupPatchDto updateName(ReqSignupPatchDto request, UserSignupEntity userSignupEntity){
         userSignupEntity.setName(request.getName());
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.INPUT_FULL_NAME_SUCCESS);
-        userSignupRepository.save(userSignupEntity);
         return buildResponse(userSignupEntity);
     }
 
     //* Step 4
     public ResSignupPatchDto updatePassword(ReqSignupPatchDto request, UserSignupEntity userSignupEntity){
-        userSignupEntity.setPassword(request.getPassword());
+        userSignupEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.INPUT_PASSWORD_SUCCESS);
         return buildResponse(userSignupEntity);
     }
@@ -149,7 +158,6 @@ public class SignupDirectSaveDBService{
     public ResSignupPatchDto updateUsername(ReqSignupPatchDto request, UserSignupEntity userSignupEntity){
         userSignupEntity.setUsername(request.getUsername());
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.INPUT_USERNAME_SUCCESS);
-
         return buildResponse(userSignupEntity);
     }
 
@@ -165,6 +173,7 @@ public class SignupDirectSaveDBService{
         return ResSignupPatchDto
                 .builder()
                 .signupId(userSignupEntity.getId())
+                .signupState(userSignupEntity.getSignupState())
                 .build();
     }
 

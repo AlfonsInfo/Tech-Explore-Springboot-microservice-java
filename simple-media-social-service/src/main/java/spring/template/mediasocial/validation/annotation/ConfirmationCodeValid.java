@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = ConfirmationCodeValidator.class)
 @Target({ FIELD,  PARAMETER, TYPE})
 public @interface ConfirmationCodeValid {
-    String message() default "Confirmation Code is UUID";
+    String message() default "Confirmation Code is not valid";
 
     Class<?>[] groups() default { };
 
