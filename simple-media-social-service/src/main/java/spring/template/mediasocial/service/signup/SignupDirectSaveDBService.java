@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.template.mediasocial.dto.signup.ReqSignupPatchDto;
 import spring.template.mediasocial.dto.signup.init_1.ReqInitSignup;
@@ -28,6 +29,8 @@ public class SignupDirectSaveDBService{
     // service
     private final NotificationService emailNotificationService;
     private final NotificationService whatsappNotificationService;
+
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Maps each signup state to its processing function, which takes a
@@ -59,10 +62,13 @@ public class SignupDirectSaveDBService{
             @Qualifier("emailNotificationService")
             NotificationService emailNotificationService,
             @Qualifier("whatsappNotificationService")
-            NotificationService whatsappNotificationService) {
+            NotificationService whatsappNotificationService,
+            PasswordEncoder passwordEncoder
+    ) {
         this.userSignupRepository = userSignupRepository;
         this.emailNotificationService = emailNotificationService;
         this.whatsappNotificationService = whatsappNotificationService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -136,7 +142,7 @@ public class SignupDirectSaveDBService{
 
     //* Step 4
     public ResSignupPatchDto updatePassword(ReqSignupPatchDto request, UserSignupEntity userSignupEntity){
-        userSignupEntity.setPassword(request.getPassword());
+        userSignupEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         userSignupEntity.setSignupState(UserSignupEntity.SignupState.INPUT_PASSWORD_SUCCESS);
         return buildResponse(userSignupEntity);
     }
